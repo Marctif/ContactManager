@@ -1,6 +1,7 @@
 package com.cs.utd.contactmanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,6 +28,10 @@ public class ContactViewer extends AppCompatActivity {
     FileManager fileManager;
 
     private static Context context;
+    public static final String PASS_FIRST = "com.example.myfirstapp.MESSAGE_FIRST";
+    public static final String PASS_LAST = "com.example.myfirstapp.MESSAGE_LAST";
+    public static final String PASS_PHONE = "com.example.myfirstapp.MESSAGE_PHONE";
+    public static final String PASS_EMAIL = "com.example.myfirstapp.MESSAGE_EMAIL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,13 @@ public class ContactViewer extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
+            Intent intent = new Intent(context, EditContact.class);
+            Contact c = contactList.get(0);
+            intent.putExtra(PASS_FIRST, c.firstName);
+            intent.putExtra(PASS_LAST, c.lastName);
+            intent.putExtra(PASS_PHONE, c.phoneNumber);
+            intent.putExtra(PASS_EMAIL, c.email);
+            startActivity(intent);
             return true;
         }
 
