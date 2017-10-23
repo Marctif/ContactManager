@@ -20,44 +20,119 @@
 
 
     </android.support.design.widget.AppBarLayout>
-    <EditText
-        android:id="@+id/editContactFirst"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/hello"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/editContactLast" />
 
-    <EditText
-        android:id="@+id/editContactLast"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/hello"
         tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appBarLayout"
-        android:layout_marginTop="66dp"
-        app:layout_constraintRight_toRightOf="@+id/editContactPhone" />
+        android:id="@+id/linearLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_first_label"/>
+        <EditText
+            android:id="@+id/editContactFirst"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/hello"
+            tools:layout_constraintTop_creator="1"
+            app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+            app:layout_constraintLeft_toLeftOf="@+id/editContactLast" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editContactPhone"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/hello"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
-        android:layout_marginTop="130dp"
-        app:layout_constraintLeft_toLeftOf="@+id/editContactFirst" />
+        android:layout_marginTop="28dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
+        app:layout_constraintRight_toRightOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
-    <EditText
-        android:id="@+id/editContactEmail"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_last_label" />
+        <EditText
+            android:id="@+id/editContactLast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello"
+            app:layout_constraintRight_toRightOf="@+id/editContactPhone"
+            app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+            tools:layout_constraintTop_creator="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/hello"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
-        android:layout_marginTop="200dp"
-        app:layout_constraintLeft_toLeftOf="@+id/editContactPhone" />
+        android:layout_marginTop="95dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
+        app:layout_constraintRight_toRightOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_phone_label" />
+
+
+
+        <EditText
+            android:id="@+id/editContactPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello"
+            app:layout_constraintLeft_toLeftOf="@+id/editContactLast"
+            app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+
+            tools:layout_constraintTop_creator="1" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="167dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
+        app:layout_constraintRight_toRightOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_email_label" />
+
+        <EditText
+            android:id="@+id/editContactEmail"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/hello"
+            tools:layout_constraintTop_creator="1"
+            app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+            app:layout_constraintLeft_toLeftOf="@+id/editContactPhone" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

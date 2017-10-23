@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="edit_title">Edit Contact</string>
     <string name="hello">Hello World</string>
+    <string name="edit_first_label">First Name</string>
+    <string name="edit_last_label">Last Name</string>
+    <string name="edit_phone_label">Phone Number</string>
+    <string name="edit_email_label">Email</string>
 </resources>
