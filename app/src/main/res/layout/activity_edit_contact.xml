@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cs.utd.contactmanager.EditContact">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </android.support.design.widget.AppBarLayout>
+    <EditText
+        android:id="@+id/editContactFirst"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/hello"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/editContactLast" />
+
+    <EditText
+        android:id="@+id/editContactLast"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/hello"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        android:layout_marginTop="66dp"
+        app:layout_constraintRight_toRightOf="@+id/editContactPhone" />
+
+    <EditText
+        android:id="@+id/editContactPhone"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/hello"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        android:layout_marginTop="130dp"
+        app:layout_constraintLeft_toLeftOf="@+id/editContactFirst" />
+
+    <EditText
+        android:id="@+id/editContactEmail"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/hello"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        android:layout_marginTop="200dp"
+        app:layout_constraintLeft_toLeftOf="@+id/editContactPhone" />
+
+</android.support.constraint.ConstraintLayout>
