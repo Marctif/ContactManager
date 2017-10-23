@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -120,6 +122,8 @@ public class ContactViewer extends AppCompatActivity {
                 while ((line = reader.readLine()) != null)
                     fileLines.add(line);
 
+                reader.close(); //Deba - close file reader
+
                 List<Contact> contacts = new ArrayList<Contact>();
                 for(String s : fileLines){
                     String[] split = s.split(",");
@@ -133,6 +137,21 @@ public class ContactViewer extends AppCompatActivity {
                 System.out.println(ex.getMessage());
             }
             return null;
+        }
+
+        public void saveNewContact(Contact newContact){
+
+            try {
+                AssetManager am = context.getAssets();
+                BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter("contact.txt"));
+                for(Contact c : contactList){
+                    updatedContactFile.write(c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
+                }
+                updatedContactFile.close();
+            }
+            catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
