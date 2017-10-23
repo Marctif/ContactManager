@@ -11,10 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -64,6 +66,32 @@ public class ContactViewer extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.contact_list);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // selected item
+                String name = (String)parent.getAdapter().getItem(position);
+                String[] split = name.split(" ");
+                Contact match = null;
+                for(Contact c : contactList){
+                    if(c.firstName.equals( split[0]) && c.lastName.equals( split[1]) && c.phoneNumber.equals( split[2])){
+                        match = c;
+                    }
+                }
+
+                Intent intent = new Intent(context, EditContact.class);
+                intent.putExtra(PASS_FIRST, match.firstName);
+                intent.putExtra(PASS_LAST, match.lastName);
+                intent.putExtra(PASS_PHONE, match.phoneNumber);
+                intent.putExtra(PASS_EMAIL, match.email);
+                startActivity(intent);
+
+                /*Toast toast = Toast.makeText(getApplicationContext(), match.toString() + " " + match.email, Toast.LENGTH_SHORT);
+                toast.show();
+                */
+            }
+        });
+
     }
 
     @Override
@@ -83,11 +111,6 @@ public class ContactViewer extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
             Intent intent = new Intent(context, EditContact.class);
-            Contact c = contactList.get(0);
-            intent.putExtra(PASS_FIRST, c.firstName);
-            intent.putExtra(PASS_LAST, c.lastName);
-            intent.putExtra(PASS_PHONE, c.phoneNumber);
-            intent.putExtra(PASS_EMAIL, c.email);
             startActivity(intent);
             return true;
         }
