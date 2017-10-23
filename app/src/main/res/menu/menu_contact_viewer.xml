@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.cs.utd.contactmanager.ContactViewer">
+    <item
+        android:id="@+id/action_add"
+        android:title="Add"
+        app:showAsAction="ifRoom"/>
+</menu>
