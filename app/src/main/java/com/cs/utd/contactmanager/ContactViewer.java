@@ -37,6 +37,8 @@ public class ContactViewer extends AppCompatActivity {
     public static final String PASS_PHONE = "com.example.myfirstapp.MESSAGE_PHONE";
     public static final String PASS_EMAIL = "com.example.myfirstapp.MESSAGE_EMAIL";
 
+    public static final int CONTACT_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,7 @@ public class ContactViewer extends AppCompatActivity {
                 intent.putExtra(PASS_LAST, match.lastName);
                 intent.putExtra(PASS_PHONE, match.phoneNumber);
                 intent.putExtra(PASS_EMAIL, match.email);
-                startActivity(intent);
+                startActivityForResult(intent, CONTACT_REQUEST);
 
                 /*Toast toast = Toast.makeText(getApplicationContext(), match.toString() + " " + match.email, Toast.LENGTH_SHORT);
                 toast.show();
@@ -92,6 +94,24 @@ public class ContactViewer extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                String result=data.getStringExtra("result");
+                Toast toast = Toast.makeText(getApplicationContext(), "resut: " + result, Toast.LENGTH_SHORT);
+                toast.show();
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
     }
 
     @Override
@@ -111,7 +131,7 @@ public class ContactViewer extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
             Intent intent = new Intent(context, EditContact.class);
-            startActivity(intent);
+            startActivityForResult(intent, CONTACT_REQUEST);
             return true;
         }
 
