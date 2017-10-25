@@ -81,7 +81,7 @@ public class EditContact extends AppCompatActivity {
             returnIntent.putExtra(ContactViewer.PASS_LAST, lastName);
             returnIntent.putExtra(ContactViewer.PASS_PHONE, phone);
             returnIntent.putExtra(ContactViewer.PASS_EMAIL, email);
-            returnIntent.putExtra(ContactViewer.PASS_EXISTING, true);
+            returnIntent.putExtra(ContactViewer.PASS_EXISTING, existingContact);
 
             //Return the intent
             setResult(Activity.RESULT_OK,returnIntent);
@@ -106,7 +106,7 @@ public class EditContact extends AppCompatActivity {
             returnIntent.putExtra(ContactViewer.PASS_LAST, lastName);
             returnIntent.putExtra(ContactViewer.PASS_PHONE, phone);
             returnIntent.putExtra(ContactViewer.PASS_EMAIL, email);
-            returnIntent.putExtra(ContactViewer.PASS_EXISTING, true);
+            returnIntent.putExtra(ContactViewer.PASS_EXISTING, existingContact);
 
             //Return the intent
             setResult(Activity.RESULT_CANCELED,returnIntent);

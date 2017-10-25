@@ -91,12 +91,12 @@ public class ContactViewer extends AppCompatActivity {
                     contact.email = email;
                 } else {
                     contact = new Contact("" + findNextID(),first,last,phone,email);
+                    contactList.add(contact);
                 }
 
                 remakeListView();
 
                 Toast toast = Toast.makeText(getApplicationContext(), contact.toString() , Toast.LENGTH_SHORT);
-
                 toast.show();
 
                 // Do something with the contact here (bigger example below)
@@ -167,6 +167,7 @@ public class ContactViewer extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
             Intent intent = new Intent(context, EditContact.class);
+            intent.putExtra(PASS_EXISTING, false);
             startActivityForResult(intent, CONTACT_REQUEST);
             return true;
         }
