@@ -22,13 +22,19 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="25dp">
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="25dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="match_parent"
             android:orientation="vertical">
 
 
@@ -38,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/editContactFirst"
                 android:layout_alignBottom="@+id/editContactFirst"
-                android:layout_alignStart="@+id/edit"
+
                 android:text="@string/edit_first_label" />
 
             <EditText
@@ -58,8 +64,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/editContactLast"
                 android:layout_alignBottom="@+id/editContactLast"
-                android:layout_toStartOf="@+id/edit"
                 android:text="@string/edit_last_label" />
+                <!--android:layout_toStartOf="@+id/edit"-->
+
 
             <EditText
                 android:id="@+id/editContactLast"
