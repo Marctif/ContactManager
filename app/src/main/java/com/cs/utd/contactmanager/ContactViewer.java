@@ -20,9 +20,11 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -114,6 +116,7 @@ public class ContactViewer extends AppCompatActivity {
                 String id = data.getStringExtra(ContactViewer.PASS_ID);
                 Contact contact = findByID(id);
                 contactList.remove(contact);
+                saveNewContact();
                 remakeListView();
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Contact Deleted: " + contact.toString(), Toast.LENGTH_SHORT);
@@ -158,7 +161,7 @@ public class ContactViewer extends AppCompatActivity {
     }
 
     public int findNextID(){
-        String max = "";
+        String max = "0";
         for(Contact c : contactList){
             if(c.id.compareTo(max) > 0){
                 max = c.id;
@@ -227,9 +230,9 @@ public class ContactViewer extends AppCompatActivity {
         public List<Contact> readFile(){
             List<String> fileLines = new ArrayList<String>();
             try{
-                AssetManager am = context.getAssets();
-                InputStream is = am.open("contacts.txt");
-                BufferedReader reader=new BufferedReader(new InputStreamReader(is));
+                FileInputStream fis = context.openFileInput("contact.txt");
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader reader=new BufferedReader(isr);
                 String line;
 
                 while ((line = reader.readLine()) != null)
@@ -271,8 +274,8 @@ public class ContactViewer extends AppCompatActivity {
     public void saveNewContact(){
 
         try {
-            AssetManager am = context.getAssets();
-            BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter("contact.txt"));
+            //AssetManager am = context.getAssets();
+            BufferedWriter updatedContactFile = new BufferedWriter(new OutputStreamWriter(context.openFileOutput("contact.txt", Context.MODE_PRIVATE)));
             for(Contact c : contactList){
                 updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
             }
