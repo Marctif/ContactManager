@@ -65,6 +65,8 @@ public class ContactViewer extends AppCompatActivity {
         ContactViewer.context = getApplicationContext();
         fileManager = new FileManager();
         contactList = fileManager.readFile();
+        if(contactList == null)
+            contactList = new ArrayList<Contact>();
 
         remakeListView();
 
@@ -162,6 +164,9 @@ public class ContactViewer extends AppCompatActivity {
 
     public int findNextID(){
         String max = "0";
+        if(contactList == null)
+            return 0;
+
         for(Contact c : contactList){
             if(c.id.compareTo(max) > 0){
                 max = c.id;
@@ -190,6 +195,9 @@ public class ContactViewer extends AppCompatActivity {
 
     public List<String> toStringArray(List<Contact> list){
         List<String> formattedList = new ArrayList<String>();
+        if(list == null)
+            return formattedList;
+
         for(Contact c : list){
             formattedList.add(c.toString());
         }
@@ -274,8 +282,14 @@ public class ContactViewer extends AppCompatActivity {
     public void saveNewContact(){
 
         try {
+//<<<<<<< Updated upstream
             //AssetManager am = context.getAssets();
             BufferedWriter updatedContactFile = new BufferedWriter(new OutputStreamWriter(context.openFileOutput("contact.txt", Context.MODE_PRIVATE)));
+//=======
+//            AssetManager am = context.getAssets();
+//            String filePath = context.getFilesDir().getPath().toString() + "/contact.txt";
+//            BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter(filePath));
+//>>>>>>> Stashed changes
             for(Contact c : contactList){
                 updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
             }
