@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.cs.utd.contactmanager.ContactViewer">
     <item
+        android:id="@+id/action_delete"
+        android:title="Delete"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/action_save"
         android:title="Save"
         app:showAsAction="ifRoom"/>
