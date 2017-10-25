@@ -95,7 +95,7 @@ public class ContactViewer extends AppCompatActivity {
                     contact = new Contact("" + findNextID(),first,last,phone,email);
                     contactList.add(contact);
                 }
-
+                saveNewContact();
                 remakeListView();
 
                 String message = "";
@@ -252,19 +252,34 @@ public class ContactViewer extends AppCompatActivity {
             return null;
         }
 
-        public void saveNewContact(Contact newContact){
+//        public void saveNewContact(Contact newContact){
+//
+//            try {
+//                AssetManager am = context.getAssets();
+//                BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter("contact.txt"));
+//                for(Contact c : contactList){
+//                    updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
+//                }
+//                updatedContactFile.close();
+//            }
+//            catch (Exception ex){
+//                System.out.println(ex.getMessage());
+//            }
+//        }
+    }
 
-            try {
-                AssetManager am = context.getAssets();
-                BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter("contact.txt"));
-                for(Contact c : contactList){
-                    updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
-                }
-                updatedContactFile.close();
+    public void saveNewContact(){
+
+        try {
+            AssetManager am = context.getAssets();
+            BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter("contact.txt"));
+            for(Contact c : contactList){
+                updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
             }
-            catch (Exception ex){
-                System.out.println(ex.getMessage());
-            }
+            updatedContactFile.close();
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
         }
     }
 
