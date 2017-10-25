@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditContact extends AppCompatActivity {
 
@@ -83,10 +84,17 @@ public class EditContact extends AppCompatActivity {
             returnIntent.putExtra(ContactViewer.PASS_EMAIL, email);
             returnIntent.putExtra(ContactViewer.PASS_EXISTING, existingContact);
 
-            //Return the intent
-            setResult(Activity.RESULT_OK,returnIntent);
+            if(firstName.matches("")){
+                Toast toast = Toast.makeText(getApplicationContext(), "First Name is Required", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else{
+                //Return the intent
+                setResult(Activity.RESULT_OK,returnIntent);
 
-            finish();
+                finish();
+            }
+
         }
         if (id == R.id.action_delete) {
             Intent returnIntent = new Intent();
