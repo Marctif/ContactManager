@@ -98,13 +98,25 @@ public class ContactViewer extends AppCompatActivity {
 
                 remakeListView();
 
-                Toast toast = Toast.makeText(getApplicationContext(), contact.toString() , Toast.LENGTH_SHORT);
+                String message = "";
+                if(existing){
+                    message = "Contact Updated";
+                }
+                else{
+                    message = "Contact Create Sucessfully";
+                }
+                Toast toast = Toast.makeText(getApplicationContext(), message , Toast.LENGTH_SHORT);
                 toast.show();
 
                 // Do something with the contact here (bigger example below)
             }
             if (resultCode == RESULT_CANCELED) {
-                Toast toast = Toast.makeText(getApplicationContext(), "SHOULD DELETE", Toast.LENGTH_SHORT);
+                String id = data.getStringExtra(ContactViewer.PASS_ID);
+                Contact contact = findByID(id);
+                contactList.remove(contact);
+                remakeListView();
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Contact Deleted: " + contact.toString(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
@@ -134,10 +146,6 @@ public class ContactViewer extends AppCompatActivity {
                 intent.putExtra(PASS_EMAIL, match.email);
                 intent.putExtra(PASS_EXISTING, true);
                 startActivityForResult(intent, CONTACT_REQUEST);
-
-                /*Toast toast = Toast.makeText(getApplicationContext(), match.toString() + " " + match.email, Toast.LENGTH_SHORT);
-                toast.show();
-                */
             }
         });
     }
