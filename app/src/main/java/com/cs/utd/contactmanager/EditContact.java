@@ -1,3 +1,12 @@
+/**
+ *  Android Contact Manager app for CS 6326 assignment 4.
+ *
+ *  This is the activity where users can add a new contact or
+ *  modifty and delete and old one
+ *
+ *  Authors: Marc Tifrea and Deba Imade
+ *           mxt130730
+ */
 package com.cs.utd.contactmanager;
 
 import android.app.Activity;
@@ -12,12 +21,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// Activty where a user can add a new contact or modify/delete an old one
+// Called from contact viewer
+// Author: Marc Tifrea
 public class EditContact extends AppCompatActivity {
 
     private static Context context;
     private static boolean existingContact;
     private static String Contactid;
 
+    // Setup for the activity. Gets the data from the intent and
+    // Sets the edit fields
+    // Author: Marc Tifrea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +60,8 @@ public class EditContact extends AppCompatActivity {
 
     }
 
+    // Sets the action bar menu items. Only show delete if editing a contact
+    // Author: Marc Tifrea
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -55,6 +72,9 @@ public class EditContact extends AppCompatActivity {
         return true;
     }
 
+    // Handles action bar button presses
+    // Passes back contact data either for an update or a delete
+    // Author: Marc Tifrea
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -62,7 +82,7 @@ public class EditContact extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // Save pressed so get data from fields and finish this activity
         if (id == R.id.action_save) {
             Intent returnIntent = new Intent();
 
@@ -84,6 +104,7 @@ public class EditContact extends AppCompatActivity {
             returnIntent.putExtra(ContactViewer.PASS_EMAIL, email);
             returnIntent.putExtra(ContactViewer.PASS_EXISTING, existingContact);
 
+            //Make sure there is a first name
             if(firstName.matches("")){
                 Toast toast = Toast.makeText(getApplicationContext(), "First Name is Required", Toast.LENGTH_SHORT);
                 toast.show();
@@ -91,11 +112,11 @@ public class EditContact extends AppCompatActivity {
             else{
                 //Return the intent
                 setResult(Activity.RESULT_OK,returnIntent);
-
                 finish();
             }
 
         }
+        //Delete pressed so pass back contact to delete and finish
         if (id == R.id.action_delete) {
             Intent returnIntent = new Intent();
 

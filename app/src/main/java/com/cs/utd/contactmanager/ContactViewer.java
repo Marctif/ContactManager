@@ -1,3 +1,14 @@
+/**
+ *  Android Contact Manager app for CS 6326 assignment 4.
+ *
+ * A simple android app for adding and managing phone contacts.
+ *  Users can view existing contacts, add new ones, delete, and modifty contacts.
+ *  This is primary activity which handles the viewing of all exsting contacts
+ *
+ *  Authors: Marc Tifrea and Deba Imade
+ *           mxt130730
+ */
+
 package com.cs.utd.contactmanager;
 
 import android.content.Context;
@@ -30,6 +41,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+// Activity responsible for viewing all current contacts
 public class ContactViewer extends AppCompatActivity {
 
     List<Contact> contactList;
@@ -45,22 +57,15 @@ public class ContactViewer extends AppCompatActivity {
 
     public static final int CONTACT_REQUEST = 1;
 
+    // Adds contacts to a List view by reading from the text file.
+    // Called on activity creation
+    // Author: Marc Tifrea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_viewer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         ContactViewer.context = getApplicationContext();
         fileManager = new FileManager();
@@ -69,18 +74,18 @@ public class ContactViewer extends AppCompatActivity {
             contactList = new ArrayList<Contact>();
 
         remakeListView();
-
     }
 
+    // Handles the results from the EditContact Activity
+    // Will either delete an existing contact or update an old one
+    // Author: Marc Tifrea
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == CONTACT_REQUEST) {
-            // Make sure the request was successful
+            // Response for adding or modifying
             if (resultCode == RESULT_OK) {
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
-
+                //Get data from request
                 String id = data.getStringExtra(ContactViewer.PASS_ID);
                 String first=data.getStringExtra(ContactViewer.PASS_FIRST);
                 String last=data.getStringExtra(ContactViewer.PASS_LAST);
@@ -88,6 +93,7 @@ public class ContactViewer extends AppCompatActivity {
                 String email=data.getStringExtra(ContactViewer.PASS_EMAIL);
                 boolean existing=data.getBooleanExtra(ContactViewer.PASS_EXISTING,true);
 
+                //Updates or creates a contact
                 Contact contact = null;
                 if(existing){
                     contact = findByID(id);
@@ -102,6 +108,7 @@ public class ContactViewer extends AppCompatActivity {
                 saveNewContact();
                 remakeListView();
 
+                //Display toast saying which action was performed
                 String message = "";
                 if(existing){
                     message = "Contact Updated";
@@ -114,6 +121,7 @@ public class ContactViewer extends AppCompatActivity {
 
                 // Do something with the contact here (bigger example below)
             }
+            // Contact should be deleted
             if (resultCode == RESULT_CANCELED) {
                 String id = data.getStringExtra(ContactViewer.PASS_ID);
                 Contact contact = findByID(id);
@@ -127,6 +135,9 @@ public class ContactViewer extends AppCompatActivity {
         }
     }
 
+    // Method to remake the ListView. Takes the contact list array and
+    // sets the ListView to mirror the arrays contents.
+    // Author: Marc Tifrea
     public void remakeListView(){
         List<String> formattedList = toStringArray(contactList);
 
@@ -136,6 +147,8 @@ public class ContactViewer extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.contact_list);
         listView.setAdapter(adapter);
 
+        //Add a click listener so that EditConact activity can be launched
+        // to edit a current contact
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -155,6 +168,8 @@ public class ContactViewer extends AppCompatActivity {
         });
     }
 
+    // Inflates the actionbar Menu
+    // Author: Marc Tifrea
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -162,6 +177,8 @@ public class ContactViewer extends AppCompatActivity {
         return true;
     }
 
+    // Find the next largest ID # of all contacts in the list
+    // Author: Deba Imade
     public int findNextID(){
         String max = "0";
         if(contactList == null)
@@ -175,14 +192,13 @@ public class ContactViewer extends AppCompatActivity {
         return Integer.parseInt(max) + 1;
     }
 
+    // Handles any presses on the menu (add button)
+    // Author: Marc Tifrea
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //If add is clicked launch EditContact
         if (id == R.id.action_add) {
             Intent intent = new Intent(context, EditContact.class);
             intent.putExtra(PASS_EXISTING, false);
@@ -193,6 +209,8 @@ public class ContactViewer extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Returns a sorted list of strings from a list of contacts
+    // Author: Deba Imade
     public List<String> toStringArray(List<Contact> list){
         List<String> formattedList = new ArrayList<String>();
         if(list == null)
@@ -206,6 +224,8 @@ public class ContactViewer extends AppCompatActivity {
         return formattedList;
     }
 
+    // Find a contact by its string name
+    // Author: Deba Imade
     public Contact findByName(String name){
         String[] split = name.split(" ");
         Contact match = null;
@@ -217,6 +237,8 @@ public class ContactViewer extends AppCompatActivity {
         return match;
     }
 
+    // Find a contact by its ID
+    // Author: Deba Imade
     public Contact findByID(String id){
         Contact match = null;
         for(Contact c : contactList){
@@ -227,14 +249,18 @@ public class ContactViewer extends AppCompatActivity {
         return match;
     }
 
+    // Class to handle the reading of the file for initial input into the ListView
+    // Author: Deba Imade
     public class FileManager {
         String path;
-
 
         public FileManager(){
             path = "contacts.txt";
         }
 
+        // Read the file line by line creating a contact for each line.
+        // Adds the contact to the list
+        // Author: Deba Imade
         public List<Contact> readFile(){
             List<String> fileLines = new ArrayList<String>();
             try{
@@ -246,7 +272,7 @@ public class ContactViewer extends AppCompatActivity {
                 while ((line = reader.readLine()) != null)
                     fileLines.add(line);
 
-                reader.close(); //Deba - close file reader
+                reader.close();
 
                 List<Contact> contacts = new ArrayList<Contact>();
                 for(String s : fileLines){
@@ -263,33 +289,14 @@ public class ContactViewer extends AppCompatActivity {
             return null;
         }
 
-//        public void saveNewContact(Contact newContact){
-//
-//            try {
-//                AssetManager am = context.getAssets();
-//                BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter("contact.txt"));
-//                for(Contact c : contactList){
-//                    updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
-//                }
-//                updatedContactFile.close();
-//            }
-//            catch (Exception ex){
-//                System.out.println(ex.getMessage());
-//            }
-//        }
     }
 
+    // Method to write the contacts of the list into the textfile for saving
+    // Author: Deba Imade
     public void saveNewContact(){
 
         try {
-//<<<<<<< Updated upstream
-            //AssetManager am = context.getAssets();
             BufferedWriter updatedContactFile = new BufferedWriter(new OutputStreamWriter(context.openFileOutput("contact.txt", Context.MODE_PRIVATE)));
-//=======
-//            AssetManager am = context.getAssets();
-//            String filePath = context.getFilesDir().getPath().toString() + "/contact.txt";
-//            BufferedWriter updatedContactFile = new BufferedWriter(new FileWriter(filePath));
-//>>>>>>> Stashed changes
             for(Contact c : contactList){
                 updatedContactFile.write(c.id + "," + c.firstName + "," + c.lastName + "," + c.phoneNumber + "," + c.email + "\n");
             }
@@ -300,6 +307,8 @@ public class ContactViewer extends AppCompatActivity {
         }
     }
 
+    // Expert Class to manage info about a contact
+    // Author: Marc Tifrea
     public class Contact {
         String id;
         String firstName;
@@ -307,6 +316,8 @@ public class ContactViewer extends AppCompatActivity {
         String phoneNumber;
         String email;
 
+        // Constructor for a contact
+        // Author: Marc Tifrea
         public Contact(String id,String first,String last, String phoneNum, String email){
             this.id = id;
             firstName = first;
@@ -315,6 +326,8 @@ public class ContactViewer extends AppCompatActivity {
             this.email = email;
         }
 
+        // ToString method for a contact
+        // Author: Marc Tifrea
         public String toString(){
             return firstName + " " + lastName + " " + phoneNumber;
         }
