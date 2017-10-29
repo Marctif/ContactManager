@@ -6,6 +6,7 @@
  *
  *  Authors: Marc Tifrea and Deba Imade
  *           mxt130730
+ *           ooi160130
  */
 package com.cs.utd.contactmanager;
 
